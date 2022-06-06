@@ -14,6 +14,7 @@ app.use(helmet());
 
 //route
 app.get('/', (req: Request, res: Response)=>{
+    // throw new Error('error ya pasha!!!!!!!!!!!!!!!!!!!');
     res.json({
         msg: 'helloworld'
     })
@@ -27,7 +28,12 @@ app.post('/', express.json(), (req: Request, res: Response) => {
     })
     console.log(req.body);  
 })
-
+//handle not found middeware
+app.use((_req: Request, res: Response) => {
+    res.status(400).json({
+        message: 'wrong path !!'
+    })
+})
 //listen server on the port(start server)
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)
