@@ -1,9 +1,12 @@
 import express, {Request, Response} from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import config from './config';
+import db from './database';
+import { Client } from 'pg';
 
 //port
-const PORT =3000;
+const PORT =config.port || 3000;
 //create server instance
 const app = express();
 
@@ -27,6 +30,16 @@ app.post('/', express.json(), (req: Request, res: Response) => {
         "data": req.body
     })
     console.log(req.body);  
+})
+//test db
+db.connect().then(client => {
+    return client.query('SELECT NOW()').then(res => {
+        client.release();
+        console.log(res.rows);
+    }).catch(err => {
+        client.release();
+        console.log(err)
+    })
 })
 //handle not found middeware
 app.use((_req: Request, res: Response) => {
