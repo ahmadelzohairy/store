@@ -4,17 +4,18 @@ import helmet from 'helmet';
 import config from './config';
 import db from './database';
 import { Client } from 'pg';
-
+import routes from './routes';
 //port
 const PORT =config.port || 3000;
 //create server instance
 const app = express();
 
 //middlewares
+app.use(express.json())
 app.use(morgan('common'));
 app.use(helmet());
 
-
+app.use('/api', routes)
 //route
 app.get('/', (req: Request, res: Response)=>{
     // throw new Error('error ya pasha!!!!!!!!!!!!!!!!!!!');
