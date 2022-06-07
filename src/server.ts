@@ -32,15 +32,15 @@ app.post('/', express.json(), (req: Request, res: Response) => {
     console.log(req.body);  
 })
 //test db
-db.connect().then(client => {
-    return client.query('SELECT NOW()').then(res => {
-        client.release();
-        console.log(res.rows);
-    }).catch(err => {
-        client.release();
-        console.log(err)
-    })
-})
+// db.connect().then(client => {
+//     return client.query('SELECT NOW()').then(res => {
+//         client.release();
+//         console.log(res.rows);
+//     }).catch(err => {
+//         client.release();
+//         console.log(err)
+//     })
+// })
 //handle not found middeware
 app.use((_req: Request, res: Response) => {
     res.status(400).json({
